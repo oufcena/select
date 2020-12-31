@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Hello World!</h1>
+
+<script>
+function select(option, size=3, JSX=document.body) {
+  if(!option) {
+    option = [
+      `xx-small`,
+      `x-small`,
+      `small`,
+      `medium`,
+      `large`,
+      `x-large`,
+      `xx-large`,
+      `100%`,
+      `250%`,
+      `2cm`,
+      `100px`
+    ];
+  }
+  
+  var CSS, JS, HTML='';
+  
+  CSS = [
+    `
+      width: -moz-max-content;
+      border: 1px solid #000;
+      border-radius: 4px;
+      overflow: hidden;
+    `,
+    `
+      width: 150%;
+      border: none;
+    `
+  ];
+  
+  JS = [
+    `
+      var option, x;
+      option = this.options[this.selectedIndex].text;
+      
+      x = this.parentElement
+      .previousElementSibling
+      .previousElementSibling;
+
+      x.style.cssText += \`font-size: \${option};\`;
+    `
+  ];
+  
+  HTML += `<section style="${CSS[0]}">`;
+  HTML += `<select oninput="${JS[0]}" 
+  style="${CSS[1]}" size='${size}'>`;
+  HTML += option.map(v => {  
+    return `<option>${v}</option>`;
+  }).join('');
+  HTML += `</select>`;
+  HTML += `</section>`;
+    
+  JSX.innerHTML += HTML;
+} select();
+</script>
+
+</body>
+</html>
